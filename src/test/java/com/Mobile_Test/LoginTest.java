@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 public class LoginTest extends BaseClassMobile {
     @Test
     public void login() {
+
         waitForVisibilityOfTheElement(login.getEmail());
         login.getEmail().click();
         actions.sendKeys("thangavel@yopmail.com").build().perform();

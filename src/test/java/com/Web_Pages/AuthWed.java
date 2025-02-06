@@ -4,75 +4,83 @@ import com.Web_Utils.BaseClassWeb;
 import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 @Getter
 @Setter
 public class AuthWed extends BaseClassWeb {
 
-    @FindBy(id = "identifierId")
-    private WebElement email;
-
-    @FindBy(xpath = "//span[text()='Next']")
-    private WebElement nextButton;
-
-    @FindBy(name = "Passwd")
-    private WebElement password;
-
-    @FindBy(xpath = "//input[@type='checkbox']")
-    private WebElement showPassword;
-
-    @FindBy(xpath = "//p[normalize-space(text())='Park:']")
-    private WebElement parkText;
-
-    @FindBy(xpath = "(//a[@aria-hidden='true'])[1]")
-    private WebElement selectParkDarianLake;
+    @FindBy(linkText="Select Park")
+    private WebElement selectParkHome;
 
     @FindBy(id = "searchPark")
-    private WebElement searchPark;
+    private WebElement searchParkTextBox;
 
     @FindBy(xpath = "//a[@aria-label='Go to Six Flags Home']//img[1]")
     private WebElement backToHome;
 
-    public void enterUsername(String username) {
-        getEmail().sendKeys(username);
-    }
+    @FindBy(tagName = "iframe")
+    private List<WebElement> frames;
 
-    public void enterPassword(String username) {
-        getPassword().sendKeys(username);
-    }
-
-    public void clickOnNext() {
-        clickElement(getNextButton());
-    }
+    @FindBy(xpath="(//a[@aria-hidden='true'])[7]")
+    private WebElement darienLake;
 
     public void navigateToURL(String URL) {
         driver.get().get(URL);
     }
 
-    public void clickShowPassword() {
-        getShowPassword().click();
-    }
-
-    public AuthWed(WebDriver webDriver) {
-        PageFactory.initElements(driver.get(), this);
-    }
-
-    public void authLogin(String email, String password) {
+    public void authLogin() {
         navigateToURL(getProp("URL"));
-        enterUsername(email);
-        clickOnNext();
-        enterPassword(password);
-        clickShowPassword();
-        clickOnNext();
-        // waitForElement(getParkText());
+        waitFor(5000);
+        actions.sendKeys(Keys.TAB)
+                .sendKeys(getProp("Email"))
+                .sendKeys(Keys.TAB)
+                .sendKeys(getProp("Password"))
+                .sendKeys(Keys.ENTER).build().perform();
     }
 
     public void selectPark() {
-        getSearchPark().sendKeys(getProp("ParkName"));
-       // actions.sendKeys(getProp("ParkName")).build().perform();
+        waitForElement(getSelectParkHome());
+        getSelectParkHome().click();
+        getSearchParkTextBox().sendKeys(getProp("ParkName"));
+        getDarienLake().click();
+
+    }
+
+    public AuthWed() {
+        PageFactory.initElements(driver.get(), this);
+        actions = new Actions(driver.get());
     }
 }
+/*
+@FindBy(xpath = "//input[@type='checkbox']")
+private WebElement showPassword;
+public void clickShowPassword() {
+    getShowPassword().click();
+     @FindBy(xpath = "//input[@placeholder='name@host.com']")
+    private WebElement email;
+
+    @FindBy(id = "//*[@id=signInFormPassword]")
+    private WebElement password;
+
+    @FindBy(xpath = "(//input[@name='signInSubmitButton'])[1]")
+    private WebElement signIn;
+ public void enterUsername(String username) {
+        waitForElement(getEmail());
+        ((JavascriptExecutor) driver.get()).executeScript("arguments[0].click();", getEmail());
+        getEmail().sendKeys(username);
+    }
+
+    public void enterPassword(String password) {
+        ((JavascriptExecutor) driver.get()).executeScript("arguments[0].click();", getPassword());
+        getPassword().sendKeys(password);
+    }
+       public void clickOnSignIn() {
+        clickElement(getSignIn());
+    }
+}*/
