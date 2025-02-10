@@ -30,7 +30,7 @@ public class BaseClassMobile {
     protected static StartUp startUp;
     protected static Login login;
 
-    @BeforeSuite(alwaysRun = true)
+    @BeforeClass(alwaysRun = true)
      /*For Parallel Exception
    @BeforeTest(alwaysRun = true)
     @Parameters({"deviceName", "platformVersion"})
@@ -38,25 +38,15 @@ public class BaseClassMobile {
     */
     public void setUp() {
         if (driver.get() == null) {
-            try {
-                driver.set(new AppiumDriver(MobileDriverManager.getUrl(), MobileDriverManager.getOptions()));
-                /*For Parallel Exception
-                driver.set(new AndroidDriver(DriverSetup.getUrl(), DriverSetup.getOptions(deviceName,platformVersion)));
-                */
-                System.out.println("Driver is initialized successfully!");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            driver.set(new AppiumDriver(MobileDriverManager.getUrl(), MobileDriverManager.getOptions()));
+            System.out.println("Driver is initialized successfully!");
+        }
+        if (driver.get() != null) {
+            actions = new Actions(driver.get());
+            startUp = new StartUp(driver.get());
+            login = new Login(driver.get());
         }
     }
-
-    @BeforeClass(alwaysRun = true)
-    public void initClasses() {
-        actions = new Actions(driver.get());
-        startUp = new StartUp(driver.get());
-        login = new Login(driver.get());
-    }
-
     @AfterSuite(alwaysRun = true)
     public void tearDown() {
         if (driver.get() != null) {
@@ -172,6 +162,7 @@ public class BaseClassMobile {
     }
 
     public static void tapEle(WebElement ele) {
+        wait(2000);
         Point location = ele.getLocation();
         Dimension size = ele.getSize();
         Point centerOfEle = getCenter(location, size);

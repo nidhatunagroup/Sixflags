@@ -1,0 +1,1 @@
+{"uuid":"e0f21197-972b-40eb-a50e-933c9a13fac9","name":"com.Mobile_Test.LoginTest","children":["9cfad7b8-3ceb-48ed-bf9e-fe337b054885"],"befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1739199509350,"stop":1739199525042}],"afters":[],"start":1739199509324,"stop":1739199554159}

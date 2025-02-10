@@ -13,7 +13,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class AuthWed extends BaseClassWeb {
+public class AuthWeb extends BaseClassWeb {
 
     @FindBy(linkText="Select Park")
     private WebElement selectParkHome;
@@ -52,7 +52,7 @@ public class AuthWed extends BaseClassWeb {
 
     }
 
-    public AuthWed() {
+    public AuthWeb() {
         PageFactory.initElements(driver.get(), this);
         actions = new Actions(driver.get());
     }

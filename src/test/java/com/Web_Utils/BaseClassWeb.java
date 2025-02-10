@@ -15,7 +15,7 @@ import java.util.Properties;
 
 public class BaseClassWeb {
     protected static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-    protected AuthWed authWeb;
+    protected AuthWeb authWeb;
     public Actions actions;
     protected Login login;
     protected ExperiencesPage experiencesPage;
@@ -34,7 +34,7 @@ public class BaseClassWeb {
 
         }
         if (driver.get() != null) {
-            authWeb = new AuthWed();
+            authWeb = new AuthWeb();
             login = new Login(driver.get());
             experiencesPage = new ExperiencesPage(driver.get());
             restaurantsPage = new RestaurantsPage(driver.get());
