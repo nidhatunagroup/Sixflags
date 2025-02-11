@@ -2,13 +2,13 @@ package com.Web_Utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 
 import java.time.Duration;
 
 public class WebDriverManager {
     static ThreadLocal<WebDriver> localDriver = new ThreadLocal<>();
-
     public static WebDriver getDriver(String browser) {
         if (localDriver.get() == null) {
             switch (browser.toLowerCase()) {
@@ -23,7 +23,8 @@ public class WebDriverManager {
                     localDriver.set(new ChromeDriver());
                     break;
             }
-            localDriver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            localDriver.get().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+            localDriver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
             localDriver.get().manage().window().maximize();
         }
         return localDriver.get();

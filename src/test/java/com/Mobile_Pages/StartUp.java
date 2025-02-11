@@ -35,19 +35,21 @@ public class StartUp {
     @AndroidFindBy(xpath = "//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View[1]")
     private WebElement enableProd;
 
-    public void testLaunch() {
-        if (isEleDisplayed(getAllowButton())) {
-            tapEle(getAllowButton());
-            tapEle(getContinueButton());
-            tapEle(getContinueButton());
-            tapEle(getAllowButton());
-            tapEle(getContinueButton());
-            tapEle(getContinueButton());
-            tapEle(getContinueButton());
-            tapEle(getContinueButton());
-        }
+    @AndroidFindBy(className = "android.widget.Button")
+    private WebElement signIn_Signup;
+
+    public void setupCarousel() {
+        tapEle(getContinueButton());
+        tapEle(getContinueButton());
+        //tapEle(getWhileUsingTheApp());
+        tapEle(getContinueButton());
+        tapEle(getContinueButton());
+        tapEle(getContinueButton());
+        tapEle(getSignIn_Signup()); //Enable notification
+        tapEle(getSignIn_Signup());
         System.out.println("App Launched with initial stage");
     }
+
     public StartUp(AppiumDriver driver) {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }

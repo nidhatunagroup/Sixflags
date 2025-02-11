@@ -12,7 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 @Getter
 @Setter
 public class Login extends BaseClassWeb {
-    @FindBy(xpath = " (//span[contains(text(), 'Login / Sign Up')])[1]")
+    @FindBy(xpath = "(//span[text()='Login / Sign Up'])[1]")
     private WebElement loginSignupButton;
 
     @FindBy(xpath = "(//input[@id='email'])[2]")
@@ -24,14 +24,18 @@ public class Login extends BaseClassWeb {
     @FindBy(xpath = "(//button[@type='submit'])[2]")
     private WebElement submitButton;
 
-    @FindBy(xpath = "//a[normalize-space(text())='Sign Up']")
-    private WebElement signupButton;
+    @FindBy(xpath = "//a[normalize-space()='Sign Up']")
+    private WebElement signUp;
 
     public void userLogin(String email, String password) {
         clickElement(getLoginSignupButton());
         getEmail().sendKeys(email);
         getPassword().sendKeys(password);
         clickElement(getSubmitButton());
+    }
+
+    public void userSignUp() {
+
     }
 
     public Login(WebDriver webDriver) {
