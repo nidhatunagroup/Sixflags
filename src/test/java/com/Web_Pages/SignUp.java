@@ -63,5 +63,6 @@ public class SignUp extends BaseClassWeb {
     }
 
     public void new_SignUp(String firstName) {
+
     }
 }
