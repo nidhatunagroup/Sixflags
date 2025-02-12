@@ -35,7 +35,6 @@ public class AuthWed extends BaseClassWeb {
     @FindBy(id = "searchPark")
     private WebElement searchPark;
 
-
 //    @FindBy(xpath = " (//a[normalize-space(text()) = 'Select Park']")
 //    private WebElement searchPark;
 

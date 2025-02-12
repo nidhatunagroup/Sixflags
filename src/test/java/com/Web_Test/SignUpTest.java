@@ -15,7 +15,8 @@ public class SignUpTest extends BaseClassWeb {
                 getProp("Dob"), getProp("MobileNumber"), getProp("Password"),
                 getProp("RetypePassword"));
 //        authWeb.getBackToHome().click();
-        waitFor(10000);
+
+        waitFor(15000);
 
     }
 
