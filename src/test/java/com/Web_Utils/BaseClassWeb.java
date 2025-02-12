@@ -15,14 +15,14 @@ import java.util.Properties;
 
 public class BaseClassWeb {
     protected static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-    protected Actions actions;
-    protected AuthWed authWeb;
+    protected AuthWeb authWeb;
+    public Actions actions;
     protected Login login;
     protected ExperiencesPage experiencesPage;
     protected RestaurantsPage restaurantsPage;
     protected RidesPage ridesPage;
     protected SwitchTabs switchTabs;
-    protected SignUp signUp;
+    protected Signup signup;
     protected SoftAssert softAssert = new SoftAssert();
 
     @Parameters("browser")
@@ -30,26 +30,30 @@ public class BaseClassWeb {
     public void setUp(@Optional("chrome") String browser) {
         if (driver.get() == null) {
             driver.set(WebDriverManager.getDriver(browser));
-            driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+            driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
             driver.get().manage().window().maximize();
         }
         if (driver.get() != null) {
-        authWeb = new AuthWed(driver.get());
-//        actions = new Actions(driver.get());
-        login = new Login(driver.get());
-        experiencesPage = new ExperiencesPage(driver.get());
-        restaurantsPage = new RestaurantsPage(driver.get());
-        ridesPage = new RidesPage(driver.get());
-        switchTabs = new SwitchTabs(driver.get());
-        signUp = new SignUp(driver.get());
+            authWeb = new AuthWeb();
+            switchTabs = new SwitchTabs(driver.get());
+            login = new Login(driver.get());
+            experiencesPage = new ExperiencesPage(driver.get());
+            restaurantsPage = new RestaurantsPage(driver.get());
+            ridesPage = new RidesPage(driver.get());
+            signup = new Signup(driver.get());
+
         } else {
             throw new RuntimeException("WebDriver initialization failed!");
         }
     }
 
-    @AfterClass
+
     public void tearDown() {
-        WebDriverManager.quitDriver();
+        if (driver.get() != null) {
+            driver.get().quit();
+            driver.remove();  // Remove a driver from thread-local storage
+        }
     }
 
 

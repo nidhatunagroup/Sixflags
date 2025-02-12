@@ -32,6 +32,7 @@
     </dependency>
 
     <dependency>
+<<<<<<< HEAD
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.24</version>
@@ -39,6 +40,8 @@
     </dependency>
 
     <dependency>
+=======
+>>>>>>> origin/All_in_Code
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
       <version>2.23.1</version>

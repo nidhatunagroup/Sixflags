@@ -23,3 +23,4 @@ public class RestaurantsPage extends BaseClassWeb {
         PageFactory.initElements(driver.get(), this);
     }
 }
+

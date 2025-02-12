@@ -10,7 +10,12 @@
     <test name="Edge Tests">
         <parameter name="browser" value="edge"/>
         <classes>
+<<<<<<< HEAD
             <class name="com.Web_Test.LoginTest"/>
+=======
+            <class name="com.Web_Test.SelectParkTest"/>
+            <class name="com.Web_Test.SwitchTabsTest"/>
+>>>>>>> origin/All_in_Code
         </classes>
     </test>
 </suite>
