@@ -9,13 +9,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+
 @Getter
 @Setter
 public class SignUp extends BaseClassWeb {
     @FindBy(xpath = " (//span[contains(text(), 'Login / Sign Up')])[1]")
     private WebElement login_SignupButton;
 
-    @FindBy(xpath = " (//a[contains(text(), 'Sign Up')]")
+    @FindBy(xpath = " (//a[contains(text(), 'Sign Up')])")
     private WebElement New_SignupButton;
 
     @FindBy(xpath = "(//input[@id='firstName'])")
@@ -39,20 +40,27 @@ public class SignUp extends BaseClassWeb {
     @FindBy(xpath = "(//input[@id='retypePassword'])")
     private WebElement retypePassword;
 
-    @FindBy(xpath = "(//button[contains(text(), 'Sign up')])")
+    @FindBy(xpath = "(//input[@type='checkbox'][@name='smsOptIn'])")
+    private WebElement sentEmailOption;
+
+    @FindBy(xpath = "(//button[normalize-space()='Sign up'])")
     private WebElement final_Sign_up_button;
 
-    public void new_SignUp(String firstName, String lastName, String emailId, String dob, String mobileNumber,
+    public void new_SignUp(String emailId, String mobileNumber,
                            String password, String retypePassword) {
         clickElement(getLogin_SignupButton());
+        waitFor(5000);
         clickElement(getNew_SignupButton());
-        getFirstName().sendKeys(firstName);
-        getLastName().sendKeys(lastName);
+        getFirstName().sendKeys(getProp("FirstName"));
+        getLastName().sendKeys(getProp("LastName"));
         getEmailId().sendKeys(emailId);
-        getDob().sendKeys(dob);
+        getDob().sendKeys(getProp("Dob"));
         getMobileNumber().sendKeys(mobileNumber);
         getPassword().sendKeys(password);
         getRetypePassword().sendKeys(retypePassword);
+        webScroll_and_click(getSentEmailOption());
+//        getSentEmailOption().click();
+//        webScroll_and_click(getFinal_Sign_up_button());
         clickElement(getFinal_Sign_up_button());
 
     }
@@ -61,7 +69,4 @@ public class SignUp extends BaseClassWeb {
     public SignUp(WebDriver webDriver) {
         PageFactory.initElements(driver.get(), this);
     }
-
-    public void new_SignUp(String firstName) {
-
 }

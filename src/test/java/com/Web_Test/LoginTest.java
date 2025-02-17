@@ -11,7 +11,6 @@ public class LoginTest extends BaseClassWeb {
         waitFor(5000);
         softAssert.assertEquals(driver.get().getTitle(), getProp("SelectParkTitle"), "Title mismatch");
         authWeb.selectPark();
-        authWeb.getSelectParkDarianLake().click();
         login.userLogin(getProp("LoginEmail"), getProp("LoginPassword"));
         authWeb.getBackToHome().click();
         waitFor(15000);

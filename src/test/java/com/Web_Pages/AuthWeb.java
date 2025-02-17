@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.w3c.dom.html.HTMLInputElement;
 
 import java.util.List;
 
@@ -61,6 +62,7 @@ public class AuthWeb extends BaseClassWeb {
         PageFactory.initElements(driver.get(), this);
         actions = new Actions(driver.get());
     }
+
 }
 /*
 @FindBy(xpath = "//input[@type='checkbox']")

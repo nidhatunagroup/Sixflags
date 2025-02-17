@@ -9,9 +9,20 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
+import org.openqa.selenium.JavascriptExecutor;
 
 import java.time.Duration;
 import java.util.Properties;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriverException;
+
 
 public class BaseClassWeb {
     protected static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
@@ -22,15 +33,16 @@ public class BaseClassWeb {
     protected RestaurantsPage restaurantsPage;
     protected RidesPage ridesPage;
     protected SwitchTabs switchTabs;
-    protected Signup signup;
+    protected SignUp signup;
     protected SoftAssert softAssert = new SoftAssert();
+    protected JavascriptExecutor js;
+    protected HomePage homepage;
 
     @Parameters("browser")
     @BeforeClass
     public void setUp(@Optional("chrome") String browser) {
         if (driver.get() == null) {
             driver.set(WebDriverManager.getDriver(browser));
-
             driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
             driver.get().manage().window().maximize();
         }
@@ -41,23 +53,26 @@ public class BaseClassWeb {
             experiencesPage = new ExperiencesPage(driver.get());
             restaurantsPage = new RestaurantsPage(driver.get());
             ridesPage = new RidesPage(driver.get());
-            signup = new Signup(driver.get());
+            signup = new SignUp(driver.get());
+            js = (JavascriptExecutor) driver.get();
+//            homepage = new HomePage(driver.get());
 
         } else {
             throw new RuntimeException("WebDriver initialization failed!");
         }
     }
 
-
-    public void tearDown() {
+    @AfterClass
+    public void tearDown() throws IOException {
         if (driver.get() != null) {
+            captureScreenshot();
             driver.get().quit();
             driver.remove();  // Remove a driver from thread-local storage
         }
     }
 
 
-    public void waitForElement(WebElement element) {
+    public void  waitForElement(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver.get(), Duration.ofSeconds(30));
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
@@ -78,5 +93,20 @@ public class BaseClassWeb {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void webScroll_and_click(WebElement element){
+        JavascriptExecutor js = (JavascriptExecutor) driver.get();
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+        waitFor(2000);
+//        element.click();
+    }
+
+    public void captureScreenshot() throws WebDriverException, IOException {
+        File screenshot = ((TakesScreenshot) driver.get()).getScreenshotAs(OutputType.FILE);
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String filePath = STR."screenshots/_\{timestamp}.png";
+        FileUtils.copyFile(screenshot, new File(filePath));
+        System.out.println(STR."Screenshot saved: \{filePath}");
     }
 }
