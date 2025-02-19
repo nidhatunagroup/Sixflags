@@ -4,6 +4,7 @@ import com.Web_Utils.BaseClassWeb;
 import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -22,7 +23,8 @@ public class AuthWeb extends BaseClassWeb {
     @FindBy(id = "searchPark")
     private WebElement searchParkTextBox;
 
-    @FindBy(xpath = "//a[@aria-label='Go to Six Flags Home']//img[1]")
+//    @FindBy(xpath = "//a[@aria-label='Go to Six Flags Home']//img[1]")
+    @FindBy(xpath = "(//a[@aria-label='Go to Six Flags Magic Mountain Home']//img[1])")
     private WebElement backToHome;
 
     @FindBy(tagName = "iframe")
@@ -58,7 +60,7 @@ public class AuthWeb extends BaseClassWeb {
 
     }
 
-    public AuthWeb() {
+    public AuthWeb(WebDriver webDriver) {
         PageFactory.initElements(driver.get(), this);
         actions = new Actions(driver.get());
     }

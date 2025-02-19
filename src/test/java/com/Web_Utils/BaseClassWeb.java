@@ -24,6 +24,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
 
 
+
 public class BaseClassWeb {
     protected static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     protected AuthWeb authWeb;
@@ -38,8 +39,9 @@ public class BaseClassWeb {
     protected JavascriptExecutor js;
     protected HomePage homepage;
 
+
     @Parameters("browser")
-    @BeforeClass
+    @BeforeSuite
     public void setUp(@Optional("chrome") String browser) {
         if (driver.get() == null) {
             driver.set(WebDriverManager.getDriver(browser));
@@ -47,7 +49,7 @@ public class BaseClassWeb {
             driver.get().manage().window().maximize();
         }
         if (driver.get() != null) {
-            authWeb = new AuthWeb();
+            authWeb = new AuthWeb(driver.get());
             switchTabs = new SwitchTabs(driver.get());
             login = new Login(driver.get());
             experiencesPage = new ExperiencesPage(driver.get());
@@ -55,14 +57,14 @@ public class BaseClassWeb {
             ridesPage = new RidesPage(driver.get());
             signup = new SignUp(driver.get());
             js = (JavascriptExecutor) driver.get();
-//            homepage = new HomePage(driver.get());
+            homepage = new HomePage(driver.get());
 
         } else {
             throw new RuntimeException("WebDriver initialization failed!");
         }
     }
 
-    @AfterClass
+    @AfterSuite
     public void tearDown() throws IOException {
         if (driver.get() != null) {
             captureScreenshot();
