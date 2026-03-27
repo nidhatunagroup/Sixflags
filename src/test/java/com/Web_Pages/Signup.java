@@ -9,14 +9,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-
 @Getter
 @Setter
 public class SignUp extends BaseClassWeb {
     @FindBy(xpath = " (//span[contains(text(), 'Login / Sign Up')])[1]")
     private WebElement login_SignupButton;
 
-    @FindBy(xpath = " (//a[contains(text(), 'Sign Up')])")
+    @FindBy(xpath = " (//a[contains(text(), 'Sign Up')]")
     private WebElement New_SignupButton;
 
     @FindBy(xpath = "(//input[@id='firstName'])")
