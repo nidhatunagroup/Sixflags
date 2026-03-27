@@ -17,10 +17,10 @@ import java.util.List;
 @Setter
 public class AuthWeb extends BaseClassWeb {
 
-    @FindBy(linkText="Select Park")
+    @FindBy(xpath = "//a[contains(text(),'Select Property')]")
     private WebElement selectParkHome;
 
-    @FindBy(id = "searchPark")
+    @FindBy(xpath = "//input[@id='searchPark']")
     private WebElement searchParkTextBox;
 
 //    @FindBy(xpath = "//a[@aria-label='Go to Six Flags Home']//img[1]")
@@ -30,35 +30,55 @@ public class AuthWeb extends BaseClassWeb {
     @FindBy(tagName = "iframe")
     private List<WebElement> frames;
 
-    @FindBy(xpath="(//a[@aria-hidden='true'])[7]")
+    @FindBy(xpath = "(//a[contains(text(),'Darien Lake')])")
+//    @FindBy(xpath = "//a[ends-with(normalize-space(text(), 'Darien Lake'))]")
     private WebElement darienLake;
+
+    @FindBy(xpath = "(//a[contains(text(),'Six Flags Magic Mountain')])")
+    private WebElement magicMountain;
+
+    @FindBy(xpath = "//main[@id ='maincontent']/div/button/div/h2/span")
+    private WebElement choosePark;
 
     @FindBy(id="onetrust-accept-btn-handler")
     private WebElement acceptAllCookies;
 
-    public void navigateToURL(String URL) {
+    public static void navigateToURL(String URL) {
         driver.get().get(URL);
     }
 
-    public void authLogin() {
+    public static void authLogin() {
         navigateToURL(getProp("URL"));
         waitFor(5000);
-        actions.sendKeys(Keys.TAB)
-                .sendKeys(getProp("Email"))
-                .sendKeys(Keys.TAB)
-                .sendKeys(getProp("Password"))
-                .sendKeys(Keys.ENTER).build().perform();
+//        actions.sendKeys(Keys.TAB)
+//                .sendKeys(getProp("Email"))
+//                .sendKeys(Keys.TAB)
+//                .sendKeys(getProp("Password"))
+//                .sendKeys(Keys.ENTER).build().perform();
     }
 
     public void selectPark() {
         waitFor(5000);
-        getAcceptAllCookies().click();
+//        getAcceptAllCookies().click();
         waitForElement(getSelectParkHome());
         getSelectParkHome().click();
+        waitFor(2000);
         getSearchParkTextBox().sendKeys(getProp("ParkName"));
-        getDarienLake().click();
-
+        waitFor(2000);
+        webScroll_and_click(getChoosePark());
+//        getChoosePark().click();
+//        scroll_till(getChoosePark());
     }
+
+//    public void selectPark_magicMountain() {
+//        waitFor(5000);
+//        getAcceptAllCookies().click();
+//        waitForElement(getSelectParkHome());
+//        getSelectParkHome().click();
+//        getSearchParkTextBox().sendKeys(getProp("ParkName"));
+//        webScroll_and_click(getMagicMountain());
+//        getMagicMountain().click(); }
+
 
     public AuthWeb(WebDriver webDriver) {
         PageFactory.initElements(driver.get(), this);

@@ -15,7 +15,8 @@ public class WebDriverManager {
         if (localDriver.get() == null) {
             switch (browser.toLowerCase()) {
                 case "chrome":
-                    localDriver.set(new ChromeDriver());
+                    ChromeOptions options = new ChromeOptions();
+                    localDriver.set(new ChromeDriver(options));
                     break;
                 case "edge":
                     localDriver.set(new EdgeDriver());

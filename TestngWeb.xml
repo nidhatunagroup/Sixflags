@@ -10,10 +10,15 @@
     <test name="Chrome Tests">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="com.Web_Test.SelectParkTest"/>
-            <class name="com.Web_Test.LoginTest"/>
+            <class name="com.Web_Test.SelectPropertyTest"/>
+            <class name="com.Web_Test.SearchandPromoTest"/>
+            <class name="com.Web_Test.RidesTest"/>
+            <class name="com.Web_Test.SeasonPassTest"/>
+            <class name="com.Web_Test.SearchandPromoTest"/>
+            <class name="com.Web_Test.PageFooterTest"/>
+            <class name="com.Web_Test.PageHeaderTest"/>
+            <class name="com.Web_Test.HomePageTest"/>
 
-<!--            <class name="com.Web_Test.SwitchTabsTest"/>-->
 
         </classes>
     </test>

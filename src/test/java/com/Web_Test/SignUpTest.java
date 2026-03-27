@@ -12,7 +12,7 @@ public class SignUpTest extends BaseClassWeb {
         waitFor(5000);
         softAssert.assertEquals(driver.get().getTitle(), getProp("SelectParkTitle"), "Title mismatch");
         authWeb.selectPark();
-        signup.new_SignUp(getProp("Email"), getProp("MobileNumber"), getProp("Password"),
+        signup.new_SignUp(getProp("LoginEmail"), getProp("MobileNumber"), getProp("LoginPassword"),
                 getProp("RetypePassword"));
         waitFor(15000);
 
