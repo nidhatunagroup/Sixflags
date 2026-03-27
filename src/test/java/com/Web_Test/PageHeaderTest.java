@@ -30,7 +30,6 @@ public class PageHeaderTest extends BaseClassWeb {
         softAssert.assertEquals(driver.get().getTitle(), getProp("SelectParkTitle"), "Title mismatch");
         authWeb.selectPark();
         waitFor(5000);
-        waitFor(5000);
         header.click_accessebility();
         waitFor(3000);
     }
